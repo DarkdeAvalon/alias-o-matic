@@ -1,0 +1,83 @@
+#!/bin/bash
+
+# --- CONFIGURAZIONE ---
+FILE_ALIASES="$HOME/.aliasomatic"
+[[ -n "$ZSH_VERSION" ]] && SHELL_RC="$HOME/.zshrc" || SHELL_RC="$HOME/.bashrc"
+SCRIPT_PATH="/usr/local/bin/aliasomatic"
+TITLE="Alias O'Matic v1.4 - Production"
+
+# --- SETUP INIZIALE ---
+if ! grep -q "alias am=" "$SHELL_RC" 2>/dev/null; then
+    touch "$FILE_ALIASES"
+    echo -e "\n# Alias O'Matic Engine\nalias am='source $SCRIPT_PATH'" >> "$SHELL_RC"
+    echo "[[ -f $FILE_ALIASES ]] && source $FILE_ALIASES" >> "$SHELL_RC"
+    whiptail --title "CONFIGURAZIONE" --msgbox "Installazione completata!\nSto riavviando la shell. D'ora in poi usa 'am'." 12 60
+    exec bash
+fi
+
+# --- LOOP PRINCIPALE ---
+while true; do
+    CHOICE=$(whiptail --title "$TITLE" --menu "Cosa vuoi fare, Socio?" 16 65 6 \
+    "1" "Aggiungi un nuovo alias" \
+    "2" "Rimuovi un alias esistente" \
+    "3" "Elenca i tuoi alias" \
+    "4" "Reload globale" \
+    "5" "Esci" 3>&1 1>&2 2>&3)
+
+    [[ $? -ne 0 || "$CHOICE" == "5" ]] && break
+    
+    case "$CHOICE" in
+        "1")
+            NAME=$(whiptail --inputbox "Inserisci il nome della scorciatoia (es: update):" 8 60 3>&1 1>&2 2>&3)
+            [[ -z "$NAME" ]] && continue
+            
+            if type "$NAME" > /dev/null 2>&1; then
+                whiptail --title "ATTENZIONE" --msgbox "Errore: '$NAME' esiste già come comando!" 10 60
+                continue
+            fi
+            
+            CMD=$(whiptail --inputbox "Inserisci il comando completo:" 8 60 3>&1 1>&2 2>&3)
+            [[ -z "$CMD" ]] && continue
+            
+            echo "alias $NAME='$CMD'" >> "$FILE_ALIASES"
+            source "$FILE_ALIASES"
+            whiptail --msgbox "Alias '$NAME' creato e attivo!" 8 60
+            ;;
+            
+        "2")
+            # Estraiamo i nomi puliti degli alias
+            LIST=$(grep "alias " "$FILE_ALIASES" | cut -d' ' -f2 | cut -d'=' -f1)
+            
+            if [[ -z "$LIST" ]]; then
+                whiptail --msgbox "Nessun alias presente nel database!" 10 60
+                continue
+            fi
+            
+            # Prepariamo il menu per whiptail (Nome - Descrizione)
+            MENU_DATA=""
+            for a in $LIST; do
+                MENU_DATA="$MENU_DATA $a [Elimina]"
+            done
+            
+            TO_REMOVE=$(whiptail --title "Rimozione Alias" --menu "Seleziona l'alias da distruggere:" 20 60 10 $MENU_DATA 3>&1 1>&2 2>&3)
+            
+            if [[ -n "$TO_REMOVE" ]]; then
+                # Rimuoviamo la riga specifica dal file
+                sed -i "/alias $TO_REMOVE=/d" "$FILE_ALIASES"
+                # Rimuoviamo l'alias dalla memoria della shell corrente
+                unalias "$TO_REMOVE" 2>/dev/null
+                whiptail --msgbox "Alias '$TO_REMOVE' eliminato per sempre." 8 60
+            fi
+            ;;
+
+        "3")
+            ALL=$(cat "$FILE_ALIASES")
+            whiptail --title "I tuoi Alias" --msgbox "${ALL:-Il file è vuoto.}" 20 65
+            ;;
+
+        "4")
+            source "$FILE_ALIASES"
+            whiptail --title "RELOAD" --msgbox "Sincronizzazione completata!" 8 60
+            ;;
+    esac
+done
