@@ -1,50 +1,54 @@
-<<<<<<< HEAD
-# 🤖 Alias O'Matic v1.4
+# 🤖 Alias O'Matic v2.0 - "The Berserk Protocol"
 
-> "Perché editare file di configurazione a mano è roba da paleolitico."
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/version-2.0-red.svg)]()
 
-**Alias O'Matic** è un gestore di alias leggero e arrogante basato su TUI (`whiptail`). È nato sull'EVA-00 (un Dell Precision 3591 con Arch Linux) per risolvere un problema semplice: rendere gli alias **immediati**, **persistenti** e **puliti**.
-
----
-
-## 🔥 Perché è meglio degli altri?
-
-1. **Sincronizzazione Totale**: Grazie al wrapper `am`, ogni alias creato è disponibile *istantaneamente* nella shell attuale. Niente più `source ~/.bashrc` manuale.
-2. **Rimozione Chirurgica**: Quando elimini un alias, lo script usa `unalias` per disintegrarlo anche dalla memoria RAM della shell corrente. Niente "alias fantasma".
-3. **Protezione Anti-Fail**: Controlla se il nome scelto collide con comandi di sistema esistenti.
-4. **Auto-Installante**: Lo lanci una volta e lui si preoccupa di agganciarsi al tuo `.bashrc` o `.zshrc`.
+**Alias O'Matic** è il tool definitivo per i piloti di terminale che non hanno tempo da perdere con comandi chilometrici. Sviluppato sul campo (un Dell Precision 3591) per domare la shell con un solo tocco.
 
 ---
 
-## 🛠 Installazione Rapida
+## 🚀 Nuove Funzionalità v2.0
+- **Zero-Latency Input**: Basta premere un tasto numerico (1-5) per attivare i comandi. Niente tasto Invio, risposta istantanea.
+- **ANSI Color Interface**: Un cockpit testuale ad alto contrasto per non affaticare gli occhi durante le sessioni notturne di coding.
+- **Easter Egg Engine**: Messaggi d'uscita random dalla cultura pop (Evangelion, Matrix, Terminator).
+- **Persistent Storage**: Tutti i tuoi alias vengono salvati in un file dedicato `~/.aliasomatic` per non sporcare i file di sistema.
 
-1. Scarica lo script e rendilo eseguibile:
-```bash
-sudo curl -L [https://raw.githubusercontent.com/TUO_USERNAME/alias-o-matic/main/aliasomatic](https://raw.githubusercontent.com/TUO_USERNAME/alias-o-matic/main/aliasomatic) -o /usr/local/bin/aliasomatic
-sudo chmod +x /usr/local/bin/aliasomatic
+---
 
-    Avvialo per la prima configurazione:
+## 🛠️ Installazione Rapida
 
-Bash
+1. **Scarica lo script:**
+   ```bash
+   git clone [https://github.com/DarkdeAvalon/alias-o-matic.git](https://github.com/DarkdeAvalon/alias-o-matic.git)
+   cd alias-o-matic
 
-aliasomatic
+    Configura il sistema: Copia lo script nei binari e rendilo eseguibile:
+    Bash
 
-    La Magia: Chiudi il terminale e riaprilo. Da questo momento, usa solo il comando:
+    sudo cp aliasomatic /usr/local/bin/
+    sudo chmod +x /usr/local/bin/aliasomatic
 
-Bash
+    Inizializzazione: Lancia il comando per configurare la tua shell (Bash o Zsh):
+    Bash
 
-am
+    aliasomatic
 
-⚙️ Come funziona (Sotto il cofano)
+    Dopo il primo avvio, ti basterà scrivere am per entrare nel cockpit.
 
-Alias O'Matic non sporca il tuo .bashrc. Crea un file dedicato ~/.aliasomatic dove risiedono i tuoi comandi. Il comando am è un alias di sistema che esegue lo script in modalità source, permettendo una comunicazione diretta tra lo script e l'ambiente della shell. Lo script gestisce i conflitti e assicura che la rimozione sia effettiva anche nella sessione volatile della shell.
-🤝 Contributi
+🎮 Comandi del Cockpit
 
-Se vuoi aggiungere funzioni o hai trovato un bug, apri una Pull Request. Ma non venire a piangere se chiami un alias rm e poi ti cancelli la Home. Sii un vero Socio, sii responsabile.
+    1 : Aggiungi - Crea un nuovo alias al volo.
 
-Sviluppato con orgoglio da Simone & Gemini (Il Socio IA). Basato sulla cultura pop degli ultimi 40 anni e su tanta voglia di non scrivere comandi lunghi.
+    2 : Rimuovi - Gestione chirurgica della lista alias.
 
-=======
-# alias-o-matic
-"The ultimate TUI Alias Manager for Bash/Zsh. Born on Arch Linux, built for efficiency, zero-bullshit guaranteed."
->>>>>>> 86058cbaa1e03ae15aff94366bacb422210efa9d
+    3 : Elenco - Visualizza l'arsenale attuale.
+
+    4 : Reload - Sincronizza istantaneamente la shell.
+
+    5 : Esci - Chiude il cockpit con stile.
+
+⚠️ Protocollo di Sicurezza
+
+    "Sali su quel terminale, Socio, o lo farà di nuovo Rei."
+
+Creato con ❤️ (e un po' di arroganza tecnologica) da DarkdeAvalon.
