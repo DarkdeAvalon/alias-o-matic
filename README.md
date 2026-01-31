@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🤖 Alias O'Matic v1.4
 
 > "Perché editare file di configurazione a mano è roba da paleolitico."
@@ -43,3 +44,7 @@ Se vuoi aggiungere funzioni o hai trovato un bug, apri una Pull Request. Ma non 
 
 Sviluppato con orgoglio da Simone & Gemini (Il Socio IA). Basato sulla cultura pop degli ultimi 40 anni e su tanta voglia di non scrivere comandi lunghi.
 
+=======
+# alias-o-matic
+"The ultimate TUI Alias Manager for Bash/Zsh. Born on Arch Linux, built for efficiency, zero-bullshit guaranteed."
+>>>>>>> 86058cbaa1e03ae15aff94366bacb422210efa9d
